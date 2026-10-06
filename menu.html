@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Menu & Online Order - Bite Bistro</title>
+  <!-- Academic Project: Restaurant Web Development Training -->
+  <!-- Project Submitted by: GURLEEN KAUR ( U.R.N - 2514567 ) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Student Banner -->
+  <div class="student-banner">
+    <div class="container banner-flex">
+      <div>
+        <span>Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></span>
+      </div>
+      <div>
+        <span>Manager Helpline: <strong>+91 9803354974</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">B</div>
+        <div>
+          <span class="brand-title">Bite Bistro</span>
+          <span class="brand-subtitle">Delicious Food & Drinks</span>
+        </div>
+      </a>
+
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link active">Menu & Order</a>
+        <a href="reservations.html" class="nav-link">Book a Table</a>
+        <a href="about.html" class="nav-link">Our Story</a>
+        <a href="contact.html" class="nav-link">Contact Us</a>
+        <a href="admin.html" class="nav-link" style="color: var(--primary-color);">Staff Portal</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="cart-nav-btn" onclick="Cart.openDrawer()" title="View Cart">
+          🛒
+          <span class="cart-count-badge">0</span>
+        </button>
+        <a href="reservations.html" class="btn btn-primary btn-sm">Reserve Table</a>
+        <button id="menu-toggle" class="menu-toggle-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu Banner -->
+  <section style="background: #1c1815; padding: 45px 0; border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+      <span class="section-subtitle">Freshly Cooked to Order</span>
+      <h1 class="section-title">Our Food & Drink Menu</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 10px auto 25px;">
+        Choose your favorite dishes and order online. Orders are received by our kitchen and manager at <strong>+91 7009290367</strong>.
+      </p>
+
+      <!-- Live Search Bar -->
+      <div style="max-width: 480px; margin: 0 auto;">
+        <input type="text" id="menu-search" class="form-control" placeholder="🔍 Search food (e.g. Paneer, Biryani, Pizza, Shake)..." style="border-radius: 25px; padding: 12px 20px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Category Filter Pills -->
+  <section class="menu-section">
+    <div class="container">
+      
+      <div class="menu-filter-bar">
+        <button class="filter-btn active" data-category="all">All Dishes</button>
+        <button class="filter-btn" data-category="starters">Starters & Snacks</button>
+        <button class="filter-btn" data-category="mains">Main Course</button>
+        <button class="filter-btn" data-category="breads">Breads & Biryani</button>
+        <button class="filter-btn" data-category="desserts">Desserts</button>
+        <button class="filter-btn" data-category="drinks">Beverages</button>
+      </div>
+
+      <!-- Food Grid -->
+      <div class="menu-grid">
+        
+        <!-- Item 1 -->
+        <div class="menu-card" data-category="starters">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Paneer Tikka Platter">
+            <span class="menu-price-tag">₹320</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Tandoori Paneer Tikka</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Charcoal roasted paneer cubes marinated in yogurt, ajwain, and Kashmiri spices with mint chutney.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Tandoor Special</span>
+              <button onclick="Cart.addItem('paneer-tikka', 'Tandoori Paneer Tikka', 320, 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="menu-card" data-category="starters">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80" alt="Crispy Corn Salt & Pepper">
+            <span class="menu-price-tag">₹240</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Crispy Corn Pepper</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Crispy sweet corn kernels tossed with freshly ground pepper, spring onions, capsicum, and lemon zest.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Quick Bite</span>
+              <button onclick="Cart.addItem('crispy-corn', 'Crispy Corn Pepper', 240, 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="menu-card" data-category="starters">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1592417817098-8f3d6910985c?auto=format&fit=crop&w=600&q=80" alt="Chicken Malai Tikka">
+            <span class="menu-price-tag">₹390</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Chicken Malai Tikka</h4>
+              <span class="tag-badge tag-nonveg">Non-Veg</span>
+            </div>
+            <p>Melt-in-mouth chicken chunks marinated in cream, cashew paste, cardamom, and gentle green chilies.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Creamy & Mild</span>
+              <button onclick="Cart.addItem('chicken-malai', 'Chicken Malai Tikka', 390, 'https://images.unsplash.com/photo-1592417817098-8f3d6910985c?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="menu-card" data-category="mains">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Dal Makhani Royale">
+            <span class="menu-price-tag">₹280</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Dal Makhani Royale</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Slow-simmered black lentils and red kidney beans cooked overnight with white butter, cream, and garlic.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Bistro Signature</span>
+              <button onclick="Cart.addItem('dal-makhani', 'Dal Makhani Royale', 280, 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="menu-card" data-category="mains">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80" alt="Butter Chicken Special">
+            <span class="menu-price-tag">₹450</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Smoked Butter Chicken</h4>
+              <span class="tag-badge tag-nonveg">Non-Veg</span>
+            </div>
+            <p>Classic roasted chicken tikka cooked in rich makhani gravy with butter, cream, and dry kasuri methi.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Bestseller</span>
+              <button onclick="Cart.addItem('butter-chicken', 'Smoked Butter Chicken', 450, 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="menu-card" data-category="mains">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80" alt="Paneer Butter Masala">
+            <span class="menu-price-tag">₹340</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Paneer Butter Masala</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Soft cottage cheese cubes enveloped in a creamy spiced tomato onion gravy with fresh coriander.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Family Favorite</span>
+              <button onclick="Cart.addItem('paneer-butter', 'Paneer Butter Masala', 340, 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 7 -->
+        <div class="menu-card" data-category="breads">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80" alt="Hyderabadi Dum Biryani">
+            <span class="menu-price-tag">₹380</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Hyderabadi Dum Biryani</h4>
+              <span class="tag-badge tag-nonveg">Non-Veg</span>
+            </div>
+            <p>Fragrant long-grain basmati rice layered with spiced marinated chicken, saffron, mint, and fried onions.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Served with Raita</span>
+              <button onclick="Cart.addItem('hyderabadi-biryani', 'Hyderabadi Dum Biryani', 380, 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 8 -->
+        <div class="menu-card" data-category="breads">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80" alt="Butter Garlic Naan">
+            <span class="menu-price-tag">₹65</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Butter Garlic Naan</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Clay oven baked leavened bread brushed with garlic butter and fresh coriander sprigs.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Tandoor Fresh</span>
+              <button onclick="Cart.addItem('garlic-naan', 'Butter Garlic Naan', 65, 'https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 9 -->
+        <div class="menu-card" data-category="desserts">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=600&q=80" alt="Warm Belgian Chocolate Brownie">
+            <span class="menu-price-tag">₹190</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Warm Belgian Brownie</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Rich gooey chocolate brownie served with hot chocolate fudge syrup and a scoop of vanilla ice cream.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Decadent</span>
+              <button onclick="Cart.addItem('choc-brownie', 'Warm Belgian Brownie', 190, 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 10 -->
+        <div class="menu-card" data-category="drinks">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80" alt="Fresh Mint Mojito">
+            <span class="menu-price-tag">₹150</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Fresh Mint Mojito</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Muddled garden mint leaves, fresh lime wedges, sparkling soda, and crushed ice with raw cane syrup.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Refreshing Mocktail</span>
+              <button onclick="Cart.addItem('mint-mojito', 'Fresh Mint Mojito', 150, 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-icon">B</div>
+            <span class="brand-title">Bite Bistro</span>
+          </div>
+          <p>Fresh Food, Table Bookings & Takeout Delivery.</p>
+          <p style="margin-top: 10px; color: var(--primary-color);">Project Submitted by: <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu & Order</a></li>
+            <li><a href="reservations.html">Book Table</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Helpline & Orders</h4>
+          <p>Manager Phone: <strong>+91 9803354974</strong></p>
+          <p style="margin-top: 10px;">Free Home Delivery within 5 km.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Bite Bistro. Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Cart Button -->
+  <div class="floating-cart-button" onclick="Cart.openDrawer()">
+    <span>🛒 Cart</span>
+    <span class="cart-count-badge" style="position: static;">0</span>
+    <span class="cart-floating-amount" style="font-size: 0.85rem; border-left: 1px solid #00000033; padding-left: 8px;">₹0.00</span>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Food Order</h3>
+      <button class="close-cart-btn" onclick="Cart.closeDrawer()">✕</button>
+    </div>
+    <div class="cart-items-body">
+      <div id="drawer-empty-msg" style="text-align: center; padding: 40px 10px; color: var(--text-muted);">
+        <p>Your cart is empty.</p>
+      </div>
+      <div id="drawer-items-list"></div>
+    </div>
+    <div id="drawer-footer-sec" class="cart-footer" style="display: none;">
+      <div class="cart-summary-line">
+        <span>Subtotal:</span>
+        <span id="drawer-subtotal">₹0.00</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>GST (5%):</span>
+        <span id="drawer-tax">₹0.00</span>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Total Payable:</span>
+        <span id="drawer-total" style="color: var(--primary-color);">₹0.00</span>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <button onclick="Cart.clearCart()" class="btn btn-outline btn-sm">Clear</button>
+        <button onclick="Cart.openCheckout()" class="btn btn-primary" style="flex: 1;">Checkout & Confirm</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <button class="modal-close" onclick="Cart.closeCheckout()">✕</button>
+      <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 5px;">Confirm Your Food Order</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">
+        Order will be sent to kitchen and manager (+91 7009290367).
+      </p>
+
+      <form onsubmit="Cart.submitOrderForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-name">Full Name *</label>
+            <input type="text" id="cust-name" required class="form-control" placeholder="e.g. Sukhjit Singh">
+          </div>
+          <div class="form-group">
+            <label for="cust-phone">Mobile Number *</label>
+            <input type="tel" id="cust-phone" required class="form-control" placeholder="e.g. 7009290367">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-email">Email Address (for order knowledge) *</label>
+            <input type="email" id="cust-email" required class="form-control" placeholder="e.g. customer@gmail.com">
+          </div>
+          <div class="form-group">
+            <label for="cust-order-type">Order Fulfillment *</label>
+            <select id="cust-order-type" class="form-control">
+              <option value="Takeout / Pickup">Takeout / Counter Pickup</option>
+              <option value="Home Delivery">Fast Home Delivery</option>
+              <option value="Table-Side Dine-In">Table-Side Dine-In</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-address">Delivery Address / Table No.</label>
+          <input type="text" id="cust-address" class="form-control" placeholder="e.g. Table No. 4 or House #12, Street 2">
+        </div>
+
+        <div class="form-group">
+          <label for="cust-notes">Special Kitchen Instructions</label>
+          <input type="text" id="cust-notes" class="form-control" placeholder="e.g. Less spicy, extra salad">
+        </div>
+
+        <div style="background: #161311; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 500;">Total Amount:</span>
+          <span id="checkout-modal-total" style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color);">₹0.00</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+          ✓ Confirm & Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Customer Order Knowledge Receipt Modal -->
+  <div id="receipt-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div id="receipt-content"></div>
+    </div>
+  </div>
+
+  <!-- Toast Element -->
+  <div id="student-toast"></div>
+
+  <!-- Scripts -->
+  <script src="js/backend-client.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

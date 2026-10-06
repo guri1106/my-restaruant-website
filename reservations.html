@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Table - Bite Bistro</title>
+  <!-- Academic Project: Restaurant Web Development Training -->
+  <!-- Project Submitted by: GURLEEN KAUR ( U.R.N - 2514567 ) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Student Banner -->
+  <div class="student-banner">
+    <div class="container banner-flex">
+      <div>
+        <span>Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></span>
+      </div>
+      <div>
+        <span>Manager Helpline: <strong>+91 9803354974</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">B</div>
+        <div>
+          <span class="brand-title">Bite Bistro</span>
+          <span class="brand-subtitle">Delicious Food & Drinks</span>
+        </div>
+      </a>
+
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link">Menu & Order</a>
+        <a href="reservations.html" class="nav-link active">Book a Table</a>
+        <a href="about.html" class="nav-link">Our Story</a>
+        <a href="contact.html" class="nav-link">Contact Us</a>
+        <a href="admin.html" class="nav-link" style="color: var(--primary-color);">Staff Portal</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="cart-nav-btn" onclick="Cart.openDrawer()" title="View Cart">
+          🛒
+          <span class="cart-count-badge">0</span>
+        </button>
+        <button id="menu-toggle" class="menu-toggle-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Reservation Banner -->
+  <section style="background: #1c1815; padding: 45px 0; border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+      <span class="section-subtitle">Reserve Your Experience</span>
+      <h1 class="section-title">Online Table Booking</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 10px auto 0;">
+        Book your table in advance. Instant confirmation ticket is provided and notification message is sent to manager phone <strong>+91 7009290367</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Table Booking Form & Sidebar -->
+  <section class="reservation-section">
+    <div class="container">
+      <div class="reservation-layout">
+        
+        <!-- Booking Form (Left Side) -->
+        <div class="reservation-box">
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 8px;">Guest & Table Details</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 25px;">
+            Please fill in the information below to secure your dining reservation.
+          </p>
+
+          <form id="table-booking-form">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="res-name">Full Name *</label>
+                <input type="text" id="res-name" required class="form-control" placeholder="e.g. Sukhjit Singh">
+              </div>
+              <div class="form-group">
+                <label for="res-phone">Mobile Phone (for SMS updates) *</label>
+                <input type="tel" id="res-phone" required class="form-control" placeholder="e.g. 7009290367">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="res-email">Email Address (for booking confirmation) *</label>
+                <input type="email" id="res-email" required class="form-control" placeholder="e.g. sukhjitmun31@gmail.com">
+              </div>
+              <div class="form-group">
+                <label for="res-guests">Number of Guests *</label>
+                <select id="res-guests" class="form-control">
+                  <option value="1">1 Person</option>
+                  <option value="2" selected>2 Persons (Couple Table)</option>
+                  <option value="3">3 Persons</option>
+                  <option value="4">4 Persons (Family Table)</option>
+                  <option value="5">5 Persons</option>
+                  <option value="6">6 Persons (Group Table)</option>
+                  <option value="8">8 Persons</option>
+                  <option value="10">10+ Persons (Party Gathering)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="res-date">Select Date *</label>
+                <input type="date" id="res-date" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="res-time">Select Time Slot *</label>
+                <select id="res-time" class="form-control">
+                  <optgroup label="Lunch Time">
+                    <option value="12:30 PM">12:30 PM</option>
+                    <option value="1:00 PM">1:00 PM</option>
+                    <option value="1:30 PM">1:30 PM</option>
+                    <option value="2:00 PM">2:00 PM</option>
+                  </optgroup>
+                  <optgroup label="Dinner Time">
+                    <option value="7:00 PM" selected>7:00 PM</option>
+                    <option value="7:30 PM">7:30 PM</option>
+                    <option value="8:00 PM">8:00 PM</option>
+                    <option value="8:30 PM">8:30 PM</option>
+                    <option value="9:00 PM">9:00 PM</option>
+                    <option value="9:30 PM">9:30 PM</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="res-area">Preferred Seating Area *</label>
+                <select id="res-area" class="form-control">
+                  <option value="Main Dining Hall">Main Dining Hall (Air Conditioned)</option>
+                  <option value="Open Garden Terrace">Open Garden Terrace (Outdoor Breezy)</option>
+                  <option value="Candlelight Corner">Candlelight Corner (Romantic Booth)</option>
+                  <option value="Family Lounge">Family Lounge (Private Group)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="res-occasion">Dining Occasion (Optional)</label>
+                <select id="res-occasion" class="form-control">
+                  <option value="Casual Dining">Casual Dining</option>
+                  <option value="Birthday Party">Birthday Party</option>
+                  <option value="Anniversary">Anniversary Celebration</option>
+                  <option value="Business Meeting">Business Meeting</option>
+                  <option value="Family Gathering">Family Gathering</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="res-notes">Special Requests / Dietary Notes</label>
+              <textarea id="res-notes" class="form-control" placeholder="Any decoration requests, high chair needed, or dietary allergies?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 0.95rem;">
+              ✓ Guarantee Table Reservation
+            </button>
+          </form>
+        </div>
+
+        <!-- Real-Time Booking Summary Sidebar (Right Side) -->
+        <aside class="res-info-sidebar">
+          <h3>Your Booking Summary</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px;">
+            Live preview of your selected table reservation:
+          </p>
+
+          <div class="info-row">
+            <span>Date:</span>
+            <strong id="preview-date" class="text-gold">Today</strong>
+          </div>
+          <div class="info-row">
+            <span>Time:</span>
+            <strong id="preview-time" class="text-gold">7:00 PM</strong>
+          </div>
+          <div class="info-row">
+            <span>Guests:</span>
+            <strong id="preview-guests" style="color: #fff;">2 Guests</strong>
+          </div>
+          <div class="info-row">
+            <span>Seating:</span>
+            <strong id="preview-area" style="color: #fff;">Main Dining Hall</strong>
+          </div>
+          <div class="info-row">
+            <span>Booking Fee:</span>
+            <strong style="color: var(--accent-green);">FREE (Zero Deposit)</strong>
+          </div>
+
+          <div style="background: rgba(212, 163, 89, 0.1); border: 1px solid rgba(212, 163, 89, 0.3); border-radius: 8px; padding: 12px; margin-top: 20px; font-size: 0.8rem;">
+            <p style="color: var(--primary-color); font-weight: 600; margin-bottom: 4px;">📌 Reservation Policy:</p>
+            <p>• Tables are held for 15 minutes past booking time.</p>
+            <p>• Valet parking is available free of cost.</p>
+            <p>• For urgent assistance, call <strong>+91 7009290367</strong>.</p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Ticket Confirmation Modal -->
+  <div id="reservation-ticket-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div id="reservation-ticket-content"></div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer and Modals -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Food Order</h3>
+      <button class="close-cart-btn" onclick="Cart.closeDrawer()">✕</button>
+    </div>
+    <div class="cart-items-body">
+      <div id="drawer-empty-msg" style="text-align: center; padding: 40px 10px; color: var(--text-muted);">
+        <p>Your cart is empty.</p>
+      </div>
+      <div id="drawer-items-list"></div>
+    </div>
+    <div id="drawer-footer-sec" class="cart-footer" style="display: none;">
+      <div class="cart-summary-line">
+        <span>Subtotal:</span>
+        <span id="drawer-subtotal">₹0.00</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>GST (5%):</span>
+        <span id="drawer-tax">₹0.00</span>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Total Payable:</span>
+        <span id="drawer-total" style="color: var(--primary-color);">₹0.00</span>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <button onclick="Cart.clearCart()" class="btn btn-outline btn-sm">Clear</button>
+        <button onclick="Cart.openCheckout()" class="btn btn-primary" style="flex: 1;">Checkout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <button class="modal-close" onclick="Cart.closeCheckout()">✕</button>
+      <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 5px;">Confirm Your Food Order</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">
+        Order will be sent to manager (+91 7009290367).
+      </p>
+
+      <form onsubmit="Cart.submitOrderForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-name">Full Name *</label>
+            <input type="text" id="cust-name" required class="form-control" placeholder="e.g. Sukhjit Singh">
+          </div>
+          <div class="form-group">
+            <label for="cust-phone">Mobile Number *</label>
+            <input type="tel" id="cust-phone" required class="form-control" placeholder="e.g. 7009290367">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-email">Email Address *</label>
+            <input type="email" id="cust-email" required class="form-control" placeholder="e.g. customer@gmail.com">
+          </div>
+          <div class="form-group">
+            <label for="cust-order-type">Order Fulfillment *</label>
+            <select id="cust-order-type" class="form-control">
+              <option value="Takeout / Pickup">Takeout / Pickup</option>
+              <option value="Home Delivery">Home Delivery</option>
+              <option value="Table-Side Dine-In">Table-Side Dine-In</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-address">Delivery Address / Table No.</label>
+          <input type="text" id="cust-address" class="form-control" placeholder="e.g. Table 4 or House #12, Street 2">
+        </div>
+
+        <div class="form-group">
+          <label for="cust-notes">Special Kitchen Instructions</label>
+          <input type="text" id="cust-notes" class="form-control" placeholder="e.g. Less spicy, extra salad">
+        </div>
+
+        <div style="background: #161311; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 500;">Total Amount:</span>
+          <span id="checkout-modal-total" style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color);">₹0.00</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+          ✓ Place Food Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Order Receipt Modal -->
+  <div id="receipt-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div id="receipt-content"></div>
+    </div>
+  </div>
+
+  <!-- Toast Element -->
+  <div id="student-toast"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-icon">B</div>
+            <span class="brand-title">Bite Bistro</span>
+          </div>
+          <p>Online Table Reservation & Dining Management System.</p>
+          <p style="margin-top: 10px; color: var(--primary-color);">Project Submitted by: <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu & Order</a></li>
+            <li><a href="reservations.html">Book Table</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Information</h4>
+          <p>Manager Contact: <strong>+91 9803354974</strong></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Bite Bistro. Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/backend-client.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

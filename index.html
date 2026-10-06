@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bite Bistro - Fresh Food, Fine Dining & Online Ordering</title>
+  <!-- Academic Project: Restaurant Web Development Training -->
+  <!-- Project Submitted by: GURLEEN KAUR ( U.R.N - 2514567 ) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP STUDENT TRAINING PROJECT BANNER
+       ========================================== -->
+  <div class="student-banner">
+    <div class="container banner-flex">
+      <div>
+        <span>Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></span>
+      </div>
+      <div>
+        <span>Manager Helpline: <strong>+91 9803354974</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MAIN NAVIGATION HEADER
+       ========================================== -->
+  <header class="main-header">
+    <div class="container navbar">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">B</div>
+        <div>
+          <span class="brand-title">Bite Bistro</span>
+          <span class="brand-subtitle">Delicious Food & Drinks</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="menu.html" class="nav-link">Menu & Order</a>
+        <a href="reservations.html" class="nav-link">Book a Table</a>
+        <a href="about.html" class="nav-link">Our Story</a>
+        <a href="contact.html" class="nav-link">Contact Us</a>
+        <a href="admin.html" class="nav-link" style="color: var(--primary-color);">Staff Portal</a>
+      </nav>
+
+      <!-- Cart and Booking Buttons -->
+      <div class="nav-actions">
+        <!-- Floating Cart Trigger Button -->
+        <button class="cart-nav-btn" onclick="Cart.openDrawer()" title="View Cart">
+          🛒
+          <span class="cart-count-badge">0</span>
+        </button>
+
+        <a href="reservations.html" class="btn btn-primary btn-sm">Reserve Table</a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="menu-toggle" class="menu-toggle-btn">☰</button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================
+       HERO BANNER SECTION
+       ========================================== -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <span class="hero-tag">★ Welcome to Bite Bistro ★</span>
+      <h1 class="hero-title">Experience Fresh Flavors & Pure Hospitality</h1>
+      <p class="hero-desc">
+        Handcrafted dishes prepared with daily fresh market ingredients. Order food directly to your doorstep or book your cozy table with ease.
+      </p>
+      <div class="hero-buttons">
+        <a href="menu.html" class="btn btn-primary">🍽️ Order Food Online</a>
+        <a href="reservations.html" class="btn btn-outline">📅 Book Your Table</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       KEY FEATURES SECTION
+       ========================================== -->
+  <section class="features-section">
+    <div class="container features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🌿</div>
+        <h3>100% Fresh Ingredients</h3>
+        <p>Sourced every morning from certified local organic farms for the best taste and nutrition.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👨‍🍳</div>
+        <h3>Skilled Chef Brigade</h3>
+        <p>Expert chefs preparing every recipe with traditional spices and modern culinary passion.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📲</div>
+        <h3>Instant Order Alerts</h3>
+        <p>Automatic order & reservation messages routed directly to manager phone (+91 7009290367).</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🕯️</div>
+        <h3>Cozy Ambiance</h3>
+        <p>Warm indoor dining, romantic garden terrace, and private family party lounges.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       CHEF'S SIGNATURE DISHES (POPULAR)
+       ========================================== -->
+  <section class="menu-section">
+    <div class="container">
+      
+      <div class="section-header">
+        <span class="section-subtitle">Specials of the Day</span>
+        <h2 class="section-title">Chef's Recommended Dishes</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="menu-grid">
+        
+        <!-- Dish 1 -->
+        <div class="menu-card" data-category="mains">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Grilled Paneer Herb Steak">
+            <span class="menu-price-tag">₹380</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Grilled Paneer Herb Steak</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Fresh cottage cheese steak marinated in rosemary and smoked spices, served with roasted veggies.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Popular Choice</span>
+              <button onclick="Cart.addItem('paneer-steak', 'Grilled Paneer Herb Steak', 380, 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dish 2 -->
+        <div class="menu-card" data-category="mains">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80" alt="Smoked Butter Chicken Special">
+            <span class="menu-price-tag">₹450</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Smoked Butter Chicken</h4>
+              <span class="tag-badge tag-nonveg">Non-Veg</span>
+            </div>
+            <p>Tender tandoori chicken cooked in velvety tomato gravy with organic butter and aromatic fenugreek.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Chef's Pride</span>
+              <button onclick="Cart.addItem('butter-chicken', 'Smoked Butter Chicken', 450, 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dish 3 -->
+        <div class="menu-card" data-category="starters">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80" alt="Crispy Garlic Corn Fritters">
+            <span class="menu-price-tag">₹240</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Crispy Garlic Corn Fritters</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Golden sweet corn tossed with roasted garlic, chili flakes, spring onions, and tangy mint mayo dip.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Crispy Starter</span>
+              <button onclick="Cart.addItem('corn-fritters', 'Crispy Garlic Corn Fritters', 240, 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dish 4 -->
+        <div class="menu-card" data-category="desserts">
+          <div class="menu-img-wrap">
+            <img src="https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=600&q=80" alt="Warm Belgian Chocolate Brownie">
+            <span class="menu-price-tag">₹190</span>
+          </div>
+          <div class="menu-card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h4>Warm Belgian Brownie</h4>
+              <span class="tag-badge tag-veg">Veg</span>
+            </div>
+            <p>Fudgy double chocolate brownie topped with warm dark fudge sauce and rich vanilla bean ice cream.</p>
+            <div class="menu-card-footer">
+              <span style="font-size: 0.8rem; color: var(--primary-color);">Sweet Delight</span>
+              <button onclick="Cart.addItem('choc-brownie', 'Warm Belgian Brownie', 190, 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=600&q=80')" class="btn btn-primary btn-sm">
+                + Add to Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 35px;">
+        <a href="menu.html" class="btn btn-outline">Explore Full 20+ Dish Menu →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       QUICK TABLE RESERVATION BANNER
+       ========================================== -->
+  <section class="reservation-section">
+    <div class="container">
+      <div class="reservation-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <span style="color: var(--primary-color); font-weight: 600; font-size: 0.85rem;">RESERVE YOUR TABLE ONLINE</span>
+          <h2 style="font-family: var(--font-heading); font-size: 2rem; margin: 5px 0;">Planning a Dinner or Family Gathering?</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Book in less than 60 seconds. Instant confirmation ticket provided and alert sent to <strong>+91 9803354974</strong>.
+          </p>
+        </div>
+        <div>
+          <a href="reservations.html" class="btn btn-primary">Book Table Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER SECTION
+       ========================================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-icon">B</div>
+            <span class="brand-title">Bite Bistro</span>
+          </div>
+          <p>
+            A first-year student web development project showcasing modern design, interactive food ordering, and table booking backend integration.
+          </p>
+          <p style="margin-top: 10px; color: var(--primary-color);">
+            Project Submitted by: <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong>
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu & Order</a></li>
+            <li><a href="reservations.html">Book Table</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="admin.html">Staff Order Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Opening Hours</h4>
+          <ul>
+            <li>Tue - Thu: 11:30 AM - 10:30 PM</li>
+            <li>Fri - Sat: 11:30 AM - 11:30 PM</li>
+            <li>Sunday: 11:30 AM - 10:00 PM</li>
+            <li style="color: var(--primary-color);">Monday: Closed (Private Bookings)</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact & Helpline</h4>
+          <p>428 Heritage Boulevard, Food Street</p>
+          <p style="margin: 6px 0;"><strong>Manager Mobile:</strong> +91 9803354974</p>
+          <div style="margin-top: 15px;">
+            <a href="https://wa.me/919803354974" target="_blank" class="btn btn-whatsapp btn-sm">💬 WhatsApp Us</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Bite Bistro. Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       FLOATING CART TRIGGER BUTTON
+       ========================================== -->
+  <div class="floating-cart-button" onclick="Cart.openDrawer()">
+    <span>🛒 Cart</span>
+    <span class="cart-count-badge" style="position: static;">0</span>
+    <span class="cart-floating-amount" style="font-size: 0.85rem; border-left: 1px solid #00000033; padding-left: 8px;">₹0.00</span>
+  </div>
+
+  <!-- ==========================================
+       SLIDE-OUT CART DRAWER & OVERLAY
+       ========================================== -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Food Order</h3>
+      <button class="close-cart-btn" onclick="Cart.closeDrawer()">✕</button>
+    </div>
+
+    <div class="cart-items-body">
+      <div id="drawer-empty-msg" style="text-align: center; padding: 40px 10px; color: var(--text-muted);">
+        <div style="font-size: 2.5rem; margin-bottom: 10px;">🍽️</div>
+        <p>Your cart is empty.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Pick some mouthwatering dishes from our menu!</p>
+        <a href="menu.html" onclick="Cart.closeDrawer()" class="btn btn-primary btn-sm" style="margin-top: 15px;">Browse Menu</a>
+      </div>
+      <div id="drawer-items-list"></div>
+    </div>
+
+    <div id="drawer-footer-sec" class="cart-footer" style="display: none;">
+      <div class="cart-summary-line">
+        <span>Subtotal:</span>
+        <span id="drawer-subtotal">₹0.00</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>GST (5%):</span>
+        <span id="drawer-tax">₹0.00</span>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Total Payable:</span>
+        <span id="drawer-total" style="color: var(--primary-color);">₹0.00</span>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <button onclick="Cart.clearCart()" class="btn btn-outline btn-sm">Clear</button>
+        <button onclick="Cart.openCheckout()" class="btn btn-primary" style="flex: 1;">Checkout & Confirm</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       CHECKOUT MODAL
+       ========================================== -->
+  <div id="checkout-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <button class="modal-close" onclick="Cart.closeCheckout()">✕</button>
+      <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 5px;">Complete Your Order</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">
+        Enter your details. Order confirmation will be sent to your email and manager (+91 7009290367).
+      </p>
+
+      <form onsubmit="Cart.submitOrderForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-name">Full Name *</label>
+            <input type="text" id="cust-name" required class="form-control" placeholder="e.g. Sukhjit Singh">
+          </div>
+          <div class="form-group">
+            <label for="cust-phone">Mobile Number *</label>
+            <input type="tel" id="cust-phone" required class="form-control" placeholder="e.g. 7009290367">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-email">Email Address (for order knowledge) *</label>
+            <input type="email" id="cust-email" required class="form-control" placeholder="e.g. customer@gmail.com">
+          </div>
+          <div class="form-group">
+            <label for="cust-order-type">Order Fulfillment *</label>
+            <select id="cust-order-type" class="form-control">
+              <option value="Takeout / Pickup">Takeout / Counter Pickup</option>
+              <option value="Home Delivery">Fast Home Delivery</option>
+              <option value="Table-Side Dine-In">Table-Side Dine-In</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-address">Delivery Address / Table No.</label>
+          <input type="text" id="cust-address" class="form-control" placeholder="e.g. Table No. 4 or House #12, Street 2">
+        </div>
+
+        <div class="form-group">
+          <label for="cust-notes">Special Kitchen Instructions</label>
+          <input type="text" id="cust-notes" class="form-control" placeholder="e.g. Less spicy, extra green chutney">
+        </div>
+
+        <div style="background: #161311; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 500;">Total Amount Payable:</span>
+          <span id="checkout-modal-total" style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color);">₹0.00</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+          ✓ Confirm & Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       CUSTOMER ORDER KNOWLEDGE RECEIPT MODAL
+       ========================================== -->
+  <div id="receipt-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div id="receipt-content"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification element -->
+  <div id="student-toast"></div>
+
+  <!-- JavaScript Scripts -->
+  <script src="js/backend-client.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

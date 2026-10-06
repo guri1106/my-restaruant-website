@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us & Location - Bite Bistro</title>
+  <!-- Academic Project: Restaurant Web Development Training -->
+  <!-- Project Submitted by: GURLEEN KAUR ( U.R.N - 2514567 ) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Student Banner -->
+  <div class="student-banner">
+    <div class="container banner-flex">
+      <div>
+        <span>Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></span>
+      </div>
+      <div>
+        <span>Helpline: <strong>+91 9803354974</strong></span>
+        <span style="margin: 0 8px;">|</span>
+        <span>Email: <strong>contact@bitebistro.com</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">B</div>
+        <div>
+          <span class="brand-title">Bite Bistro</span>
+          <span class="brand-subtitle">Delicious Food & Drinks</span>
+        </div>
+      </a>
+
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link">Menu & Order</a>
+        <a href="reservations.html" class="nav-link">Book a Table</a>
+        <a href="about.html" class="nav-link">Our Story</a>
+        <a href="contact.html" class="nav-link active">Contact Us</a>
+        <a href="admin.html" class="nav-link" style="color: var(--primary-color);">Staff Portal</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="cart-nav-btn" onclick="Cart.openDrawer()" title="View Cart">
+          🛒
+          <span class="cart-count-badge">0</span>
+        </button>
+        <a href="reservations.html" class="btn btn-primary btn-sm">Reserve Table</a>
+        <button id="menu-toggle" class="menu-toggle-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section style="background: #1c1815; padding: 45px 0; border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+      <span class="section-subtitle">Reach Out Anytime</span>
+      <h1 class="section-title">Contact & Location</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 10px auto 0;">
+        We love to hear from our guests! Reach out directly via call, WhatsApp, or send a message below.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Grid -->
+  <section style="padding: 70px 0;">
+    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px;">
+      
+      <!-- Contact Info Cards (Left) -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <div style="background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color);">
+          <div style="font-size: 2rem; margin-bottom: 10px; color: var(--primary-color);">📞</div>
+          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 6px;">Call or WhatsApp</h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">Direct line to restaurant manager & order desk:</p>
+          <p style="font-size: 1.1rem; font-weight: bold; color: #fff;">+91 9803354974</p>
+          <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <a href="tel:9803354974" class="btn btn-outline btn-sm">Direct Call</a>
+            <a href="https://wa.me/919803354974" target="_blank" class="btn btn-whatsapp btn-sm">Chat on WhatsApp</a>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color);">
+          <div style="font-size: 2rem; margin-bottom: 10px; color: var(--primary-color);">✉️</div>
+          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 6px;">Email Inquiries</h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 10px;">For catering orders, feedback, or party bookings:</p>
+          <p style="font-size: 1rem; font-weight: bold; color: var(--primary-color);">contact@bitebistro.com</p>
+          <div style="margin-top: 12px;">
+            <a href="mailto:contact@bitebistro.com" class="btn btn-outline btn-sm">Send Email</a>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color);">
+          <div style="font-size: 2rem; margin-bottom: 10px; color: var(--primary-color);">📍</div>
+          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 6px;">Restaurant Address</h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">
+            428 Heritage Boulevard, Food Street, Near City Center<br>
+            Complimentary white-glove valet parking available.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Contact Message Form (Right) -->
+      <div style="background: var(--bg-card); padding: 35px; border-radius: 12px; border: 1px solid var(--border-color); height: fit-content;">
+        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 8px;">Send a Message</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">
+          Have questions or want to host a private party? Write to us below:
+        </p>
+
+        <form id="contact-form" onsubmit="handleContactMsg(event)">
+          <div class="form-group">
+            <label for="c-name">Your Name *</label>
+            <input type="text" id="c-name" required class="form-control" placeholder="e.g. Simran Kaur">
+          </div>
+
+          <div class="form-group">
+            <label for="c-email">Email Address *</label>
+            <input type="email" id="c-email" required class="form-control" placeholder="e.g. simran@gmail.com">
+          </div>
+
+          <div class="form-group">
+            <label for="c-phone">Phone Number *</label>
+            <input type="tel" id="c-phone" required class="form-control" placeholder="e.g. 9812345678">
+          </div>
+
+          <div class="form-group">
+            <label for="c-msg">Your Message *</label>
+            <textarea id="c-msg" required class="form-control" placeholder="How can we assist you?"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+            Send Message
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Cart Drawer -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Food Order</h3>
+      <button class="close-cart-btn" onclick="Cart.closeDrawer()">✕</button>
+    </div>
+    <div class="cart-items-body">
+      <div id="drawer-empty-msg" style="text-align: center; padding: 40px 10px; color: var(--text-muted);">
+        <p>Your cart is empty.</p>
+      </div>
+      <div id="drawer-items-list"></div>
+    </div>
+    <div id="drawer-footer-sec" class="cart-footer" style="display: none;">
+      <div class="cart-summary-line">
+        <span>Subtotal:</span>
+        <span id="drawer-subtotal">₹0.00</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>GST (5%):</span>
+        <span id="drawer-tax">₹0.00</span>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Total Payable:</span>
+        <span id="drawer-total" style="color: var(--primary-color);">₹0.00</span>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <button onclick="Cart.clearCart()" class="btn btn-outline btn-sm">Clear</button>
+        <button onclick="Cart.openCheckout()" class="btn btn-primary" style="flex: 1;">Checkout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <button class="modal-close" onclick="Cart.closeCheckout()">✕</button>
+      <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 5px;">Confirm Your Food Order</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">
+        Order will be sent to manager (+91 7009290367).
+      </p>
+
+      <form onsubmit="Cart.submitOrderForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-name">Full Name *</label>
+            <input type="text" id="cust-name" required class="form-control" placeholder="e.g. Sukhjit Singh">
+          </div>
+          <div class="form-group">
+            <label for="cust-phone">Mobile Number *</label>
+            <input type="tel" id="cust-phone" required class="form-control" placeholder="e.g. 7009290367">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-email">Email Address *</label>
+            <input type="email" id="cust-email" required class="form-control" placeholder="e.g. customer@gmail.com">
+          </div>
+          <div class="form-group">
+            <label for="cust-order-type">Order Fulfillment *</label>
+            <select id="cust-order-type" class="form-control">
+              <option value="Takeout / Pickup">Takeout / Pickup</option>
+              <option value="Home Delivery">Home Delivery</option>
+              <option value="Table-Side Dine-In">Table-Side Dine-In</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-address">Delivery Address / Table No.</label>
+          <input type="text" id="cust-address" class="form-control" placeholder="e.g. Table 4 or House #12, Street 2">
+        </div>
+
+        <div class="form-group">
+          <label for="cust-notes">Special Kitchen Instructions</label>
+          <input type="text" id="cust-notes" class="form-control" placeholder="e.g. Less spicy, extra salad">
+        </div>
+
+        <div style="background: #161311; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 500;">Total Amount:</span>
+          <span id="checkout-modal-total" style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color);">₹0.00</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+          ✓ Place Food Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Receipt Modal -->
+  <div id="receipt-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div id="receipt-content"></div>
+    </div>
+  </div>
+
+  <div id="student-toast"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Bite Bistro. Project Submitted by <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong>.</p>
+        <p style="margin-top: 5px; color: var(--primary-color);">
+          Project Submitted by: <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong> | Phone: <strong>+91 9803354974</strong> | Email: <strong>contact@bitebistro.com</strong>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/backend-client.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    function handleContactMsg(e) {
+      e.preventDefault();
+      const name = document.getElementById('c-name').value;
+      const phone = document.getElementById('c-phone').value;
+      const msg = document.getElementById('c-msg').value;
+
+      Cart.showToast(`Thank you, ${name}! Your message has been sent to manager Gurleen Kaur.`);
+
+      // Open WhatsApp chat to +91 9803354974 with user's message
+      const waUrl = `https://wa.me/919803354974?text=${encodeURIComponent('Hi Bite Bistro! My name is ' + name + ' (' + phone + '). ' + msg)}`;
+      window.open(waUrl, '_blank');
+
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>

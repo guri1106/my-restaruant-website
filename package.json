@@ -1,0 +1,25 @@
+{
+  "name": "bite-bistro-restaurant",
+  "version": "1.0.0",
+  "description": "Bite Bistro Restaurant Website - 1st Year Web Training Project with Backend Order & Reservation System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "restaurant",
+    "bistro",
+    "student-project",
+    "food-ordering",
+    "table-booking"
+  ],
+  "author": "GURLEEN KAUR ( U.R.N - 2514567 )",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.13"
+  }
+}

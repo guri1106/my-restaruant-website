@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff & Kitchen Dashboard - Bite Bistro</title>
+  <!-- Academic Project: Restaurant Web Development Training -->
+  <!-- Project Submitted by: GURLEEN KAUR ( U.R.N - 2514567 ) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Banner -->
+  <div class="student-banner">
+    <div class="container banner-flex">
+      <div>
+        <span class="student-badge">Kitchen & Manager Control Panel</span>
+        <span>Manager: <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></span>
+      </div>
+      <div>
+        <span>Alert Phone: <strong>+91 9803354974</strong></span>
+        <span style="margin: 0 8px;">|</span>
+        <span>Alert Email: <strong>contact@bitebistro.com</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">B</div>
+        <div>
+          <span class="brand-title">Bite Bistro</span>
+          <span class="brand-subtitle">Staff Portal</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">← Back to Website</a>
+        <a href="menu.html" class="nav-link">Menu</a>
+        <a href="reservations.html" class="nav-link">Reservations</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Dashboard Content -->
+  <main style="padding: 50px 0;">
+    <div class="container">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
+        <div>
+          <h1 style="font-family: var(--font-heading); font-size: 2rem;">Orders & Table Booking Management</h1>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">
+            Real-time feed of food orders and table reservations routed to <strong>+91 9803354974</strong> & <strong>contact@bitebistro.com</strong>.
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button onclick="loadDashboardData()" class="btn btn-primary btn-sm">🔄 Refresh Data</button>
+          <button onclick="clearDemoData()" class="btn btn-outline btn-sm">Clear Test Data</button>
+        </div>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+        <button id="tab-orders-btn" onclick="switchTab('orders')" class="btn btn-primary btn-sm">
+          📦 Food Orders (<span id="orders-count">0</span>)
+        </button>
+        <button id="tab-reservations-btn" onclick="switchTab('reservations')" class="btn btn-outline btn-sm">
+          📅 Table Reservations (<span id="res-count">0</span>)
+        </button>
+      </div>
+
+      <!-- Orders View Section -->
+      <div id="orders-section">
+        <div id="orders-list-container" style="display: flex; flex-direction: column; gap: 15px;"></div>
+      </div>
+
+      <!-- Reservations View Section -->
+      <div id="reservations-section" style="display: none;">
+        <div id="reservations-list-container" style="display: flex; flex-direction: column; gap: 15px;"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="student-toast"></div>
+
+  <script src="js/backend-client.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    let activeTab = 'orders';
+
+    function switchTab(tab) {
+      activeTab = tab;
+      const oSection = document.getElementById('orders-section');
+      const rSection = document.getElementById('reservations-section');
+      const oBtn = document.getElementById('tab-orders-btn');
+      const rBtn = document.getElementById('tab-reservations-btn');
+
+      if (tab === 'orders') {
+        oSection.style.display = 'block';
+        rSection.style.display = 'none';
+        oBtn.className = 'btn btn-primary btn-sm';
+        rBtn.className = 'btn btn-outline btn-sm';
+      } else {
+        oSection.style.display = 'none';
+        rSection.style.display = 'block';
+        oBtn.className = 'btn btn-outline btn-sm';
+        rBtn.className = 'btn btn-primary btn-sm';
+      }
+    }
+
+    async function loadDashboardData() {
+      // 1. Fetch Orders from Backend (or local fallback)
+      let orders = [];
+      try {
+        const res = await fetch('http://localhost:5000/api/orders');
+        if (res.ok) {
+          const data = await res.json();
+          orders = data.orders || [];
+        }
+      } catch (e) {
+        console.log('Fetching orders from localStorage fallback...');
+      }
+
+      // Merge with browser local storage orders
+      const localOrders = JSON.parse(localStorage.getItem('my_bistro_orders') || '[]');
+      localOrders.forEach(lo => {
+        if (!orders.some(o => o.orderId === lo.orderId)) {
+          orders.unshift(lo);
+        }
+      });
+
+      renderOrders(orders);
+
+      // 2. Fetch Reservations from Backend
+      let reservations = [];
+      try {
+        const res = await fetch('http://localhost:5000/api/reservations');
+        if (res.ok) {
+          const data = await res.json();
+          reservations = data.reservations || [];
+        }
+      } catch (e) {
+        console.log('Fetching reservations from localStorage fallback...');
+      }
+
+      const localRes = JSON.parse(localStorage.getItem('my_bistro_reservations') || '[]');
+      localRes.forEach(lr => {
+        if (!reservations.some(r => r.bookingId === lr.bookingId)) {
+          reservations.unshift(lr);
+        }
+      });
+
+      renderReservations(reservations);
+    }
+
+    function renderOrders(orders) {
+      const container = document.getElementById('orders-list-container');
+      const countEl = document.getElementById('orders-count');
+      if (countEl) countEl.textContent = orders.length;
+
+      if (!container) return;
+      if (orders.length === 0) {
+        container.innerHTML = `
+          <div style="background: var(--bg-card); padding: 40px; border-radius: 12px; text-align: center; color: var(--text-muted); border: 1px solid var(--border-color);">
+            No food orders received yet. Place an order on the menu to test!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = orders.map(o => `
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span style="font-family: monospace; font-size: 1.1rem; color: var(--primary-color); font-weight: bold;">${o.orderId}</span>
+              <span style="font-size: 0.75rem; background: rgba(46, 204, 113, 0.15); color: #2ecc71; padding: 2px 8px; border-radius: 4px; margin-left: 10px; font-weight: 600;">
+                ${o.status || 'Received'}
+              </span>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">
+              Placed: ${o.date || ''} at ${o.time || ''} | Type: <strong>${o.orderType || 'Pickup'}</strong>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; font-size: 0.85rem;">
+            <div>
+              <p><strong>Customer:</strong> ${o.customerName}</p>
+              <p><strong>Phone:</strong> <a href="tel:${o.customerPhone}" style="color: var(--primary-color);">${o.customerPhone}</a></p>
+              <p><strong>Email:</strong> ${o.customerEmail}</p>
+            </div>
+            <div>
+              <p><strong>Address / Table:</strong> ${o.address || 'Takeout Counter'}</p>
+              <p><strong>Instructions:</strong> ${o.notes || 'None'}</p>
+              <p><strong>Alert Destination:</strong> +91 7009290367</p>
+            </div>
+            <div>
+              <p style="font-weight: 600; margin-bottom: 5px;">Items Ordered (${o.items ? o.items.length : 0}):</p>
+              <div style="font-size: 0.8rem; color: var(--text-muted); max-height: 80px; overflow-y: auto;">
+                ${(o.items || []).map(i => `<div>• ${i.quantity}x ${i.name} (₹${i.price})</div>`).join('')}
+              </div>
+              <p style="margin-top: 8px; font-size: 1.05rem; font-weight: bold; color: var(--primary-color);">Total: ₹${Number(o.total || 0).toFixed(2)}</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 15px; pt-3; border-top: 1px dashed var(--border-color); display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="https://wa.me/91${o.customerPhone}?text=${encodeURIComponent('Hi ' + o.customerName + ', this is Bite Bistro! Your order #' + o.orderId + ' is being prepared.')}" target="_blank" class="btn btn-whatsapp btn-sm">
+              💬 WhatsApp Customer
+            </a>
+            <a href="tel:${o.customerPhone}" class="btn btn-outline btn-sm">
+              📞 Call Customer
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderReservations(resList) {
+      const container = document.getElementById('reservations-list-container');
+      const countEl = document.getElementById('res-count');
+      if (countEl) countEl.textContent = resList.length;
+
+      if (!container) return;
+      if (resList.length === 0) {
+        container.innerHTML = `
+          <div style="background: var(--bg-card); padding: 40px; border-radius: 12px; text-align: center; color: var(--text-muted); border: 1px solid var(--border-color);">
+            No table reservations booked yet. Book a table to test!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = resList.map(r => `
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span style="font-family: monospace; font-size: 1.1rem; color: var(--primary-color); font-weight: bold;">${r.bookingId}</span>
+              <span style="font-size: 0.75rem; background: rgba(46, 204, 113, 0.15); color: #2ecc71; padding: 2px 8px; border-radius: 4px; margin-left: 10px; font-weight: 600;">
+                Confirmed
+              </span>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--primary-color); font-weight: 600;">
+              📅 ${r.date} at ${r.time}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; font-size: 0.85rem;">
+            <div>
+              <p><strong>Guest Name:</strong> ${r.name}</p>
+              <p><strong>Phone:</strong> <a href="tel:${r.phone}" style="color: var(--primary-color);">${r.phone}</a></p>
+              <p><strong>Email:</strong> ${r.email}</p>
+            </div>
+            <div>
+              <p><strong>Party Size:</strong> ${r.guests} Guests</p>
+              <p><strong>Seating Area:</strong> ${r.seatingArea}</p>
+              <p><strong>Occasion:</strong> ${r.occasion}</p>
+            </div>
+            <div>
+              <p><strong>Special Notes:</strong> ${r.specialRequests || 'None'}</p>
+              <p><strong>Manager Alerted:</strong> +91 9803354974</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); pt-3; display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="https://wa.me/91${r.phone}?text=${encodeURIComponent('Hi ' + r.name + ', your table reservation at Bite Bistro for ' + r.guests + ' guests on ' + r.date + ' at ' + r.time + ' is confirmed! See you soon.')}" target="_blank" class="btn btn-whatsapp btn-sm">
+              💬 WhatsApp Guest
+            </a>
+            <a href="tel:${r.phone}" class="btn btn-outline btn-sm">
+              📞 Call Guest
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function clearDemoData() {
+      if (confirm('Clear local browser test orders?')) {
+        localStorage.removeItem('my_bistro_orders');
+        localStorage.removeItem('my_bistro_reservations');
+        loadDashboardData();
+        Cart.showToast('Test records cleared');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDashboardData();
+    });
+  </script>
+</body>
+</html>
