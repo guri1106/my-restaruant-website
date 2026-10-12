@@ -59,7 +59,7 @@
       <form id="staff-login-form" onsubmit="handleStaffLogin(event)" style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
         <div>
           <label for="staff-username" style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-main, #f5f2eb); margin-bottom: 6px;">Username (User ID)</label>
-          <input type="text" id="staff-username" required placeholder="Enter username (e.g. 2514557)" autocomplete="username"
+          <input type="text" id="staff-username" required placeholder="Enter username (e.g. 2514567)" autocomplete="username"
                  style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color, #3d352e); background: #191614; color: #fff; font-size: 0.95rem; outline: none; box-sizing: border-box;">
         </div>
 
@@ -76,6 +76,28 @@
         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 5px; cursor: pointer;">
           🔓 Unlock Staff Portal
         </button>
+
+        <!-- Authorized Staff Quick Select -->
+        <div style="margin-top: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color, #3d352e); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--primary-color, #d4a359);">👥 Authorized Staff (Any 1 of 3):</span>
+            <span style="font-size: 0.72rem; color: var(--text-muted, #a89f91);">Click to auto-fill</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 7px;">
+            <button type="button" onclick="quickFillStaff('2514567', 'gurleen@67')" style="background: #191614; border: 1px solid #3d352e; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; transition: border-color 0.2s;">
+              <span>👤 <strong>Gurleen Kaur</strong> (Manager)</span>
+              <span style="color: var(--primary-color, #d4a359); font-family: monospace;">2514567</span>
+            </button>
+            <button type="button" onclick="quickFillStaff('2514558', 'diksha@58')" style="background: #191614; border: 1px solid #3d352e; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; transition: border-color 0.2s;">
+              <span>👤 <strong>Diksha</strong> (Staff Member)</span>
+              <span style="color: var(--primary-color, #d4a359); font-family: monospace;">2514558</span>
+            </button>
+            <button type="button" onclick="quickFillStaff('2514566', 'gurleen@66')" style="background: #191614; border: 1px solid #3d352e; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; transition: border-color 0.2s;">
+              <span>👤 <strong>Gurleen</strong> (Staff Member)</span>
+              <span style="color: var(--primary-color, #d4a359); font-family: monospace;">2514566</span>
+            </button>
+          </div>
+        </div>
       </form>
 
       <p style="margin-top: 20px; font-size: 0.85rem;">
@@ -131,16 +153,35 @@
   <script src="js/backend-client.js"></script>
   <script src="js/cart.js"></script>
   <script>
-    // Authorized Staff Credentials
-    const AUTH_USER = '2514557';
-    const AUTH_PASS = 'gurleen@57';
+    // Authorized Staff Accounts (3 Members)
+    const AUTHORIZED_STAFF = [
+      { username: '2514567', password: 'gurleen@67', name: 'Gurleen Kaur', role: 'Manager' },
+      { username: '2514558', password: 'diksha@58', name: 'Diksha', role: 'Staff Member' },
+      { username: '2514566', password: 'gurleen@66', name: 'Gurleen', role: 'Staff Member' }
+    ];
     const AUTH_STORAGE_KEY = 'bite_staff_authenticated';
 
     let activeTab = 'orders';
 
+    // Quick fill helper for staff members
+    function quickFillStaff(u, p) {
+      const uField = document.getElementById('staff-username');
+      const pField = document.getElementById('staff-password');
+      if (uField) uField.value = u;
+      if (pField) pField.value = p;
+      const errorMsg = document.getElementById('login-error-msg');
+      if (errorMsg) errorMsg.style.display = 'none';
+      if (typeof Cart !== 'undefined' && Cart.showToast) {
+        Cart.showToast(`Selected account: ${u}`);
+      }
+    }
+
     // Check if staff is logged in
     function checkAuthStatus() {
-      const isAuth = sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true';
+      const isAuth = sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true' || localStorage.getItem(AUTH_STORAGE_KEY) === 'true';
+      const currentUser = sessionStorage.getItem('bite_staff_user') || localStorage.getItem('bite_staff_user') || '';
+      const currentName = sessionStorage.getItem('bite_staff_name') || localStorage.getItem('bite_staff_name') || currentUser;
+      const currentRole = sessionStorage.getItem('bite_staff_role') || localStorage.getItem('bite_staff_role') || 'Staff';
       const gate = document.getElementById('staff-login-gate');
       const dash = document.getElementById('staff-dashboard');
       const logoutBtn = document.getElementById('btn-staff-logout');
@@ -151,7 +192,7 @@
         if (dash) dash.style.display = 'block';
         if (logoutBtn) logoutBtn.style.display = 'inline-block';
         if (statusBadge) {
-          statusBadge.textContent = '🔓 Logged In: ' + AUTH_USER;
+          statusBadge.textContent = '🔓 Logged In: ' + currentName + ' (' + currentRole + ' - ' + currentUser + ')';
           statusBadge.style.background = 'rgba(46, 204, 113, 0.2)';
           statusBadge.style.color = '#2ecc71';
           statusBadge.style.borderColor = '#2ecc71';
@@ -172,20 +213,31 @@
 
     // Handle Login Form Submit
     function handleStaffLogin(e) {
-      e.preventDefault();
-      const usernameInput = document.getElementById('staff-username').value.trim();
-      const passwordInput = document.getElementById('staff-password').value.trim();
+      if (e && e.preventDefault) e.preventDefault();
+      const usernameInput = (document.getElementById('staff-username').value || '').trim();
+      const passwordInput = (document.getElementById('staff-password').value || '').trim();
       const errorMsg = document.getElementById('login-error-msg');
 
-      if (usernameInput === AUTH_USER && passwordInput === AUTH_PASS) {
+      const matchedStaff = AUTHORIZED_STAFF.find(
+        s => s.username === usernameInput &&
+             (s.password === passwordInput || s.password.toLowerCase() === passwordInput.toLowerCase())
+      );
+
+      if (matchedStaff) {
         sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
-        sessionStorage.setItem('bite_staff_user', usernameInput);
+        sessionStorage.setItem('bite_staff_user', matchedStaff.username);
+        sessionStorage.setItem('bite_staff_name', matchedStaff.name);
+        sessionStorage.setItem('bite_staff_role', matchedStaff.role);
+        localStorage.setItem(AUTH_STORAGE_KEY, 'true');
+        localStorage.setItem('bite_staff_user', matchedStaff.username);
+        localStorage.setItem('bite_staff_name', matchedStaff.name);
+        localStorage.setItem('bite_staff_role', matchedStaff.role);
         if (errorMsg) errorMsg.style.display = 'none';
         document.getElementById('staff-username').value = '';
         document.getElementById('staff-password').value = '';
         checkAuthStatus();
         if (typeof Cart !== 'undefined' && Cart.showToast) {
-          Cart.showToast('Staff Portal Unlocked!');
+          Cart.showToast(`Welcome ${matchedStaff.name}! Staff Portal Unlocked.`);
         }
       } else {
         if (errorMsg) {
@@ -199,6 +251,12 @@
     function logoutStaff() {
       sessionStorage.removeItem(AUTH_STORAGE_KEY);
       sessionStorage.removeItem('bite_staff_user');
+      sessionStorage.removeItem('bite_staff_name');
+      sessionStorage.removeItem('bite_staff_role');
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+      localStorage.removeItem('bite_staff_user');
+      localStorage.removeItem('bite_staff_name');
+      localStorage.removeItem('bite_staff_role');
       checkAuthStatus();
       if (typeof Cart !== 'undefined' && Cart.showToast) {
         Cart.showToast('Logged out. Portal Locked.');
@@ -235,7 +293,18 @@
           orders = data.orders || [];
         }
       } catch (e) {
-        console.log('Fetching orders from localStorage fallback...');
+        console.log('Fetching orders from local fallback...');
+      }
+
+      // If backend unreachable or empty, try static data/orders.json
+      if (orders.length === 0) {
+        try {
+          const res = await fetch('data/orders.json');
+          if (res.ok) {
+            const data = await res.json();
+            orders = Array.isArray(data) ? data : (data.orders || []);
+          }
+        } catch (e) {}
       }
 
       // Merge with browser local storage orders
@@ -257,7 +326,18 @@
           reservations = data.reservations || [];
         }
       } catch (e) {
-        console.log('Fetching reservations from localStorage fallback...');
+        console.log('Fetching reservations from local fallback...');
+      }
+
+      // If backend unreachable or empty, try static data/reservations.json
+      if (reservations.length === 0) {
+        try {
+          const res = await fetch('data/reservations.json');
+          if (res.ok) {
+            const data = await res.json();
+            reservations = Array.isArray(data) ? data : (data.reservations || []);
+          }
+        } catch (e) {}
       }
 
       const localRes = JSON.parse(localStorage.getItem('my_bistro_reservations') || '[]');
