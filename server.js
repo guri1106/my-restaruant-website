@@ -120,7 +120,7 @@ app.post('/api/order', async (req, res) => {
       </tr>
     `).join('');
 
-    // Email 1: Sent to Restaurant Owner (sukhjitmun31@gmail.com)
+    // Email 1: Sent to Restaurant Owner (contact@bitebistro.com)
     const ownerEmailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
         <h2 style="color: #b8860b; border-bottom: 2px solid #b8860b; padding-bottom: 8px;">🛎️ New Food Order Alert - Bite Bistro</h2>
@@ -212,7 +212,7 @@ app.post('/api/order', async (req, res) => {
         }).catch(e => console.log('Customer knowledge email error:', e.message));
       }
     } else {
-      console.log('💡 Note: EMAIL_PASS not set in .env. Order saved locally and ready for WhatsApp/SMS alert to 7009290367!');
+      console.log('💡 Note: EMAIL_PASS not set in .env. Order saved locally and ready for WhatsApp/SMS alert to 9803354974!');
     }
 
     res.status(200).json({
@@ -348,6 +348,17 @@ app.get('/api/orders', (req, res) => {
 app.get('/api/reservations', (req, res) => {
   const reservations = readData(RESERVATIONS_FILE);
   res.json({ success: true, count: reservations.length, reservations });
+});
+
+// ==============================================================================
+// 5. POST /api/staff-login -> Authenticate Staff Portal
+// ==============================================================================
+app.post('/api/staff-login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === '2514557' && password === 'gurleen@57') {
+    return res.json({ success: true, message: 'Staff authenticated successfully', username: '2514557' });
+  }
+  return res.status(401).json({ success: false, message: 'Invalid username or password' });
 });
 
 // Start the server

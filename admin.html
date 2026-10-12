@@ -14,7 +14,7 @@
   <div class="student-banner">
     <div class="container banner-flex">
       <div>
-        <span class="student-badge">Kitchen & Manager Control Panel</span>
+        <span id="staff-status-badge" class="student-badge">🔒 Portal Locked</span>
         <span>Manager: <strong>GURLEEN KAUR ( U.R.N - 2514567 )</strong></span>
       </div>
       <div>
@@ -36,16 +36,58 @@
         </div>
       </a>
 
-      <nav class="nav-menu">
+      <nav class="nav-menu" style="display: flex; align-items: center; gap: 15px;">
         <a href="index.html" class="nav-link">← Back to Website</a>
         <a href="menu.html" class="nav-link">Menu</a>
         <a href="reservations.html" class="nav-link">Reservations</a>
+        <button id="btn-staff-logout" onclick="logoutStaff()" class="btn btn-outline btn-sm" style="display: none; cursor: pointer; padding: 4px 12px; font-size: 0.82rem;">🚪 Logout</button>
       </nav>
     </div>
   </header>
 
-  <!-- Dashboard Content -->
-  <main style="padding: 50px 0;">
+  <!-- ==========================================
+       STAFF LOGIN GATE OVERLAY (Locked Screen)
+       ========================================== -->
+  <section id="staff-login-gate" style="min-height: 75vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+    <div style="background: var(--bg-card, #24201c); border: 1px solid var(--border-color, #3d352e); border-radius: 16px; padding: 40px 30px; max-width: 440px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.5); text-align: center;">
+      <div style="font-size: 3.2rem; margin-bottom: 15px;">🔐</div>
+      <h2 style="font-family: var(--font-heading, serif); color: var(--primary-color, #d4a359); font-size: 1.8rem; margin-bottom: 8px;">Staff Portal Locked</h2>
+      <p style="color: var(--text-muted, #a89f91); font-size: 0.88rem; margin-bottom: 25px; line-height: 1.5;">
+        Protected management area for kitchen orders & table reservations. Please enter your authorized staff credentials to continue.
+      </p>
+
+      <form id="staff-login-form" onsubmit="handleStaffLogin(event)" style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
+        <div>
+          <label for="staff-username" style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-main, #f5f2eb); margin-bottom: 6px;">Username (User ID)</label>
+          <input type="text" id="staff-username" required placeholder="Enter username (e.g. 2514557)" autocomplete="username"
+                 style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color, #3d352e); background: #191614; color: #fff; font-size: 0.95rem; outline: none; box-sizing: border-box;">
+        </div>
+
+        <div>
+          <label for="staff-password" style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-main, #f5f2eb); margin-bottom: 6px;">Staff Password</label>
+          <input type="password" id="staff-password" required placeholder="Enter password" autocomplete="current-password"
+                 style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color, #3d352e); background: #191614; color: #fff; font-size: 0.95rem; outline: none; box-sizing: border-box;">
+        </div>
+
+        <div id="login-error-msg" style="display: none; background: rgba(231, 76, 60, 0.15); border: 1px solid #e74c3c; color: #ff6b6b; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;">
+          ❌ Invalid Username or Password. Please try again.
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 5px; cursor: pointer;">
+          🔓 Unlock Staff Portal
+        </button>
+      </form>
+
+      <p style="margin-top: 20px; font-size: 0.85rem;">
+        <a href="index.html" style="color: var(--text-muted); text-decoration: none;">← Return to Main Website</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       STAFF DASHBOARD CONTENT (Hidden until Unlocked)
+       ========================================== -->
+  <main id="staff-dashboard" style="display: none; padding: 50px 0;">
     <div class="container">
       
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
@@ -89,7 +131,79 @@
   <script src="js/backend-client.js"></script>
   <script src="js/cart.js"></script>
   <script>
+    // Authorized Staff Credentials
+    const AUTH_USER = '2514557';
+    const AUTH_PASS = 'gurleen@57';
+    const AUTH_STORAGE_KEY = 'bite_staff_authenticated';
+
     let activeTab = 'orders';
+
+    // Check if staff is logged in
+    function checkAuthStatus() {
+      const isAuth = sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true';
+      const gate = document.getElementById('staff-login-gate');
+      const dash = document.getElementById('staff-dashboard');
+      const logoutBtn = document.getElementById('btn-staff-logout');
+      const statusBadge = document.getElementById('staff-status-badge');
+
+      if (isAuth) {
+        if (gate) gate.style.display = 'none';
+        if (dash) dash.style.display = 'block';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+        if (statusBadge) {
+          statusBadge.textContent = '🔓 Logged In: ' + AUTH_USER;
+          statusBadge.style.background = 'rgba(46, 204, 113, 0.2)';
+          statusBadge.style.color = '#2ecc71';
+          statusBadge.style.borderColor = '#2ecc71';
+        }
+        loadDashboardData();
+      } else {
+        if (gate) gate.style.display = 'flex';
+        if (dash) dash.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (statusBadge) {
+          statusBadge.textContent = '🔒 Portal Locked';
+          statusBadge.style.background = '';
+          statusBadge.style.color = '';
+          statusBadge.style.borderColor = '';
+        }
+      }
+    }
+
+    // Handle Login Form Submit
+    function handleStaffLogin(e) {
+      e.preventDefault();
+      const usernameInput = document.getElementById('staff-username').value.trim();
+      const passwordInput = document.getElementById('staff-password').value.trim();
+      const errorMsg = document.getElementById('login-error-msg');
+
+      if (usernameInput === AUTH_USER && passwordInput === AUTH_PASS) {
+        sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
+        sessionStorage.setItem('bite_staff_user', usernameInput);
+        if (errorMsg) errorMsg.style.display = 'none';
+        document.getElementById('staff-username').value = '';
+        document.getElementById('staff-password').value = '';
+        checkAuthStatus();
+        if (typeof Cart !== 'undefined' && Cart.showToast) {
+          Cart.showToast('Staff Portal Unlocked!');
+        }
+      } else {
+        if (errorMsg) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = '❌ Invalid Username or Password. Please try again.';
+        }
+      }
+    }
+
+    // Handle Staff Logout
+    function logoutStaff() {
+      sessionStorage.removeItem(AUTH_STORAGE_KEY);
+      sessionStorage.removeItem('bite_staff_user');
+      checkAuthStatus();
+      if (typeof Cart !== 'undefined' && Cart.showToast) {
+        Cart.showToast('Logged out. Portal Locked.');
+      }
+    }
 
     function switchTab(tab) {
       activeTab = tab;
@@ -194,7 +308,7 @@
             <div>
               <p><strong>Address / Table:</strong> ${o.address || 'Takeout Counter'}</p>
               <p><strong>Instructions:</strong> ${o.notes || 'None'}</p>
-              <p><strong>Alert Destination:</strong> +91 7009290367</p>
+              <p><strong>Alert Destination:</strong> +91 9803354974</p>
             </div>
             <div>
               <p style="font-weight: 600; margin-bottom: 5px;">Items Ordered (${o.items ? o.items.length : 0}):</p>
@@ -205,7 +319,7 @@
             </div>
           </div>
 
-          <div style="margin-top: 15px; pt-3; border-top: 1px dashed var(--border-color); display: flex; gap: 10px; flex-wrap: wrap;">
+          <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
             <a href="https://wa.me/91${o.customerPhone}?text=${encodeURIComponent('Hi ' + o.customerName + ', this is Bite Bistro! Your order #' + o.orderId + ' is being prepared.')}" target="_blank" class="btn btn-whatsapp btn-sm">
               💬 WhatsApp Customer
             </a>
@@ -263,7 +377,7 @@
             </div>
           </div>
 
-          <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); pt-3; display: flex; gap: 10px; flex-wrap: wrap;">
+          <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
             <a href="https://wa.me/91${r.phone}?text=${encodeURIComponent('Hi ' + r.name + ', your table reservation at Bite Bistro for ' + r.guests + ' guests on ' + r.date + ' at ' + r.time + ' is confirmed! See you soon.')}" target="_blank" class="btn btn-whatsapp btn-sm">
               💬 WhatsApp Guest
             </a>
@@ -285,7 +399,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      loadDashboardData();
+      checkAuthStatus();
     });
   </script>
 </body>
