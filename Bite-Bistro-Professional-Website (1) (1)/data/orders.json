@@ -1,0 +1,29 @@
+[
+  {
+    "orderId": "BB-10101",
+    "customerName": "Demo Customer",
+    "customerEmail": "customer@example.com",
+    "customerPhone": "9876543210",
+    "orderType": "Takeout / Pickup",
+    "address": "Counter Pickup",
+    "notes": "Please pack cutlery and extra napkins",
+    "items": [
+      {
+        "name": "Grilled Paneer & Herb Steak",
+        "price": 418,
+        "quantity": 1
+      },
+      {
+        "name": "Garlic Butter Naan",
+        "price": 72,
+        "quantity": 2
+      }
+    ],
+    "subtotal": 562,
+    "tax": 28.1,
+    "total": 590.1,
+    "date": "2026-10-05",
+    "time": "11:30 AM",
+    "status": "Received"
+  }
+]

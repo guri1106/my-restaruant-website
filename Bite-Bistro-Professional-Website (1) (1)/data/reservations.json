@@ -1,0 +1,16 @@
+[
+  {
+    "bookingId": "RES-20202",
+    "name": "Simran Kaur",
+    "email": "simran@example.com",
+    "phone": "9812345678",
+    "guests": 4,
+    "date": "2026-10-06",
+    "time": "7:30 PM",
+    "seatingArea": "Family Dining Hall",
+    "occasion": "Birthday",
+    "specialRequests": "Window table if possible",
+    "createdAt": "2026-10-05T11:00:00.000Z",
+    "status": "Confirmed"
+  }
+]
