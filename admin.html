@@ -59,7 +59,7 @@
       <form id="staff-login-form" onsubmit="handleStaffLogin(event)" style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
         <div>
           <label for="staff-username" style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-main, #f5f2eb); margin-bottom: 6px;">Username (User ID)</label>
-          <input type="text" id="staff-username" required placeholder="Enter username (e.g. 2514567)" autocomplete="username"
+          <input type="text" id="staff-username" required placeholder="Enter username" autocomplete="username"
                  style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color, #3d352e); background: #191614; color: #fff; font-size: 0.95rem; outline: none; box-sizing: border-box;">
         </div>
 
@@ -76,28 +76,6 @@
         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 5px; cursor: pointer;">
           🔓 Unlock Staff Portal
         </button>
-
-        <!-- Authorized Staff Quick Select -->
-        <div style="margin-top: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color, #3d352e); border-radius: 10px; padding: 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <span style="font-size: 0.8rem; font-weight: 600; color: var(--primary-color, #d4a359);">👥 Authorized Staff (Any 1 of 3):</span>
-            <span style="font-size: 0.72rem; color: var(--text-muted, #a89f91);">Click to auto-fill</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 7px;">
-            <button type="button" onclick="quickFillStaff('2514567', 'gurleen@67')" style="background: #191614; border: 1px solid #3d352e; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; transition: border-color 0.2s;">
-              <span>👤 <strong>Gurleen Kaur</strong> (Manager)</span>
-              <span style="color: var(--primary-color, #d4a359); font-family: monospace;">2514567</span>
-            </button>
-            <button type="button" onclick="quickFillStaff('2514558', 'diksha@58')" style="background: #191614; border: 1px solid #3d352e; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; transition: border-color 0.2s;">
-              <span>👤 <strong>Diksha</strong> (Staff Member)</span>
-              <span style="color: var(--primary-color, #d4a359); font-family: monospace;">2514558</span>
-            </button>
-            <button type="button" onclick="quickFillStaff('2514566', 'gurleen@66')" style="background: #191614; border: 1px solid #3d352e; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; transition: border-color 0.2s;">
-              <span>👤 <strong>Gurleen</strong> (Staff Member)</span>
-              <span style="color: var(--primary-color, #d4a359); font-family: monospace;">2514566</span>
-            </button>
-          </div>
-        </div>
       </form>
 
       <p style="margin-top: 20px; font-size: 0.85rem;">
@@ -162,19 +140,6 @@
     const AUTH_STORAGE_KEY = 'bite_staff_authenticated';
 
     let activeTab = 'orders';
-
-    // Quick fill helper for staff members
-    function quickFillStaff(u, p) {
-      const uField = document.getElementById('staff-username');
-      const pField = document.getElementById('staff-password');
-      if (uField) uField.value = u;
-      if (pField) pField.value = p;
-      const errorMsg = document.getElementById('login-error-msg');
-      if (errorMsg) errorMsg.style.display = 'none';
-      if (typeof Cart !== 'undefined' && Cart.showToast) {
-        Cart.showToast(`Selected account: ${u}`);
-      }
-    }
 
     // Check if staff is logged in
     function checkAuthStatus() {
